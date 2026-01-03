@@ -1,0 +1,8 @@
+
+{
+  "name": "The Idea Polisher",
+  "description": "Transform messy notes and raw thoughts into professional, structured project outlines using Gemini AI. Perfect for entrepreneurs, developers, and creatives.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
