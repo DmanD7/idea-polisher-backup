@@ -7,7 +7,6 @@ import { EmailModal } from './components/EmailModal';
 import { AppStatus } from './types';
 
 const WEB3FORMS_ACCESS_KEY: string = "699a4446-e030-4b96-b4d8-225a571478ba"; 
-const GOOGLE_SHEET_WEBAPP_URL: string = "https://script.google.com/macros/s/AKfycbybDBPnWki60slPxe9IT_C7f-GqcL5xzvm6Sjqy9uggOWt_lMo49ZKAoh5ehdIjDmts/exec"; 
 const SUPABASE_URL: string = "https://ejveqhjtbuphmlrrjyev.supabase.co"; 
 const SUPABASE_ANON_KEY: string = "sb_publishable_DVQAvIkmWrsk0JQNf56fPw_xzj4waCe"; 
 
@@ -169,17 +168,10 @@ const App: React.FC = () => {
     };
 
     try {
-      const tasks = [];
-      if (GOOGLE_SHEET_WEBAPP_URL) {
-        tasks.push(fetch(GOOGLE_SHEET_WEBAPP_URL, {
-          method: 'POST', mode: 'no-cors', body: JSON.stringify(payload)
-        }));
-      }
       if (SUPABASE_URL) {
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        tasks.push(supabase.from('polished_ideas').insert([payload]));
+        await supabase.from('polished_ideas').insert([payload]);
       }
-      await Promise.all(tasks);
       setArchiveSuccess(true);
       setTimeout(() => setArchiveSuccess(false), 3000);
     } catch (err) {
